@@ -39,14 +39,25 @@ router.post("/", async (req, res) => {
 // PATCH update task
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const tasks = await readTasks();
+  const { title, completed } = req.body;
 
+  const tasks = await readTasks();
   const task = tasks.find((t) => t.id === id);
+
   if (!task) {
     return res.status(404).json({ error: "Task not found" });
   }
 
-  task.completed = !task.completed;
+  if (title !== undefined) {
+    if (!title.trim()) {
+      return res.status(400).json({ error: "Title cannot be empty" });
+    }
+    task.title = title;
+  }
+
+  if (completed !== undefined) {
+    task.completed = completed;
+  }
 
   await writeTasks(tasks);
   res.json(task);

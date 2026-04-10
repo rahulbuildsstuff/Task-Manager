@@ -11,6 +11,8 @@ router.get("/", async (req, res) => {
   } catch {
     res.status(500).json({ error: "Failed to fetch tasks" });
   }
+
+
 });
 
 // POST task
@@ -32,11 +34,10 @@ router.post("/", async (req, res) => {
 
   tasks.push(newTask);
   await writeTasks(tasks);
-
   res.status(201).json(newTask);
 });
 
-// PATCH (edit + toggle)
+// PATCH
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, completed } = req.body;
@@ -75,7 +76,11 @@ router.delete("/:id", async (req, res) => {
   }
 
   await writeTasks(filtered);
+  
   res.json({ message: "Task deleted" });
+
+
 });
+
 
 module.exports = router;

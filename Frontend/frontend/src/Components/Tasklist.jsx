@@ -37,7 +37,7 @@ export default function TaskList({ tasks, refresh }) {
         <li key={task.id} className="border p-2 flex items-center gap-2">
 
           {editingId === task.id ? (
-            /* ── Edit mode ── */
+            
             <>
               <input
                 className="border p-1 flex-1 rounded"
@@ -63,7 +63,7 @@ export default function TaskList({ tasks, refresh }) {
               </button>
             </>
           ) : (
-            /* ── View mode ── */
+           
             <>
               <span
                 className={`flex-1 cursor-pointer select-none ${

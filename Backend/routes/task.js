@@ -8,12 +8,12 @@ router.get("/", async (req, res) => {
   try {
     const tasks = await readTasks();
     res.json(tasks);
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: "Failed to fetch tasks" });
   }
 });
 
-// POST new task
+// POST task
 router.post("/", async (req, res) => {
   const { title } = req.body;
 
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
   res.status(201).json(newTask);
 });
 
-// PATCH update task
+// PATCH (edit + toggle)
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, completed } = req.body;
@@ -63,11 +63,11 @@ router.patch("/:id", async (req, res) => {
   res.json(task);
 });
 
-// DELETE task
+// DELETE
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  let tasks = await readTasks();
 
+  let tasks = await readTasks();
   const filtered = tasks.filter((t) => t.id !== id);
 
   if (tasks.length === filtered.length) {

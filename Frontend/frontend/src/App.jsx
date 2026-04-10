@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchTasks } from "./api";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import TaskForm from "./Components/Taskform";
+import TaskList from "./Components/Tasklist";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -38,9 +38,19 @@ export default function App() {
       <TaskForm onTaskAdded={loadTasks} />
 
       <div className="flex gap-2 mb-4">
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
-        <button onClick={() => setFilter("pending")}>Pending</button>
+        {["all", "completed", "pending"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`px-3 py-1 rounded border capitalize ${
+              filter === f
+                ? "bg-blue-500 text-white border-blue-500"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+            }`}
+          >
+            {f}
+          </button>
+        ))}
       </div>
 
       {loading && <p>Loading...</p>}

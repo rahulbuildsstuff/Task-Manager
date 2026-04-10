@@ -21,7 +21,12 @@ export default function TaskForm({ onTaskAdded }) {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Enter task"
       />
-      <button className="bg-blue-500 text-white px-4">Add</button>
+      <button
+        className="bg-blue-500 text-white px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={!title.trim()}
+      >
+        Add
+      </button>
     </form>
   );
 }

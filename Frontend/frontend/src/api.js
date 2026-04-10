@@ -12,6 +12,7 @@ export const addTask = async (title) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title }),
   });
+  if (!res.ok) throw new Error("Failed to add task");
   return res.json();
 };
 
@@ -21,11 +22,13 @@ export const updateTask = async (id, updates) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updates),
   });
+  if (!res.ok) throw new Error("Failed to update task");
   return res.json();
 };
 
 export const deleteTask = async (id) => {
-  await fetch(`${BASE_URL}/${id}`, {
+  const res = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
+  if (!res.ok) throw new Error("Failed to delete task");
 };
